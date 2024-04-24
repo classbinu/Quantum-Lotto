@@ -110,3 +110,7 @@ with st.expander("View Code"):
         return sorted(lotto_numbers)
     """
     st.code(code, language="python")
+
+with st.expander("Watch Code Explanation"):
+    video_url = "https://youtu.be/NZP-3rYnVEw?si=HYEG7kFGMu-fwBwt"
+    st.video(video_url)
