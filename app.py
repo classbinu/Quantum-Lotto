@@ -6,10 +6,14 @@ MAX_LOTTO_NUMBER = 45
 LOTTO_NUMBERS_COUNT = 6
 
 
-def run_quantum_circuit(num_qubits):
+def create_quantum_circuit(num_qubits):
     qc = QuantumCircuit(num_qubits, num_qubits)
     qc.h(range(num_qubits))
     qc.measure(range(num_qubits), range(num_qubits))
+    return qc
+
+
+def run_quantum_circuit(qc):
     backend = Aer.get_backend("qasm_simulator")
     job = execute(qc, backend, shots=1)
     result = job.result()
@@ -21,7 +25,8 @@ def run_quantum_circuit(num_qubits):
 def quantum_random_number_generator(max_number):
     num_qubits = max_number.bit_length()
     while True:
-        random_number = run_quantum_circuit(num_qubits)
+        qc = create_quantum_circuit(num_qubits)
+        random_number = run_quantum_circuit(qc)
         if 1 <= random_number <= max_number:
             return random_number
 
@@ -72,10 +77,14 @@ with st.expander("View Code"):
     MAX_LOTTO_NUMBER = 45
     LOTTO_NUMBERS_COUNT = 6
 
-    def run_quantum_circuit(num_qubits):
+    def create_quantum_circuit(num_qubits):
         qc = QuantumCircuit(num_qubits, num_qubits)
         qc.h(range(num_qubits))
         qc.measure(range(num_qubits), range(num_qubits))
+        return qc
+
+
+    def run_quantum_circuit(qc):
         backend = Aer.get_backend("qasm_simulator")
         job = execute(qc, backend, shots=1)
         result = job.result()
@@ -87,7 +96,8 @@ with st.expander("View Code"):
     def quantum_random_number_generator(max_number):
         num_qubits = max_number.bit_length()
         while True:
-            random_number = run_quantum_circuit(num_qubits)
+            qc = create_quantum_circuit(num_qubits)
+            random_number = run_quantum_circuit(qc)
             if 1 <= random_number <= max_number:
                 return random_number
 
